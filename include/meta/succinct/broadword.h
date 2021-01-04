@@ -156,6 +156,16 @@ inline uint64_t lsb(uint64_t word)
     unsigned long val;
     if (_BitScanForward64(&val, word))
         return static_cast<uint64_t>(val);
+#elif defined __clang__
+    {
+      uint64_t i = 0;
+      while (word > 0) {
+        if (word & 0x01)
+          return i;
+        word = word >> 1;
+        i++;
+      }
+    }
 #else
     unsigned long val;
     if (_BitScanForward(&val, static_cast<unsigned long>(word)))
