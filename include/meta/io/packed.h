@@ -37,6 +37,7 @@ namespace packed
  */
 template <class OutputStream, class T>
 typename std::enable_if<!std::is_floating_point<T>::value
+                            && !std::is_enum<T>::value
                             && std::is_unsigned<T>::value
                             && !std::is_same<T, bool>::value,
                         uint64_t>::type
@@ -230,6 +231,7 @@ uint64_t write(OutputStream& os, const T& value)
  */
 template <class InputStream, class T>
 typename std::enable_if<!std::is_floating_point<T>::value
+                            && !std::is_enum<T>::value
                             && std::is_unsigned<T>::value
                             && !std::is_same<T, bool>::value,
                         uint64_t>::type
